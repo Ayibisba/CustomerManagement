@@ -1,1 +1,26 @@
-<p>customer-list works!</p>
+<div class="container mt-4">
+  <h2 class="mb-3">Liste des clients</h2>
+  <button class="btn btn-primary mb-3">+ Ajouter un client</button>
+
+  <table class="table table-bordered table-hover">
+    <thead class="table-light">
+      <tr>
+        <th>Nom</th>
+        <th>Email</th>
+        <th>Téléphone</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customer of customers">
+        <td>{{ customer.name }}</td>
+        <td>{{ customer.email }}</td>
+        <td>{{ customer.phone }}</td>
+        <td>
+          <button class="btn btn-sm btn-warning me-2">Modifier</button>
+          <button class="btn btn-sm btn-danger" (click)="deleteCustomer(customer.id)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
