@@ -1,26 +1,38 @@
 <div class="container mt-4">
   <h2 class="mb-3">Liste des clients</h2>
-  <button class="btn btn-primary mb-3">+ Ajouter un client</button>
+  <input type="text" class="form-control mb-3" placeholder="Rechercher un client..."  [(ngModel)]="searchTerm" (input)="searchCustomer()" />
+  <button class="btn btn-primary mb-3" [routerLink]="['/customers/add']">+ Ajouter un client</button>
 
-  <table class="table table-bordered table-hover">
+
+  <table class="table table-bordered table-hover" *ngIf="displayedCustomers.length > 0">
     <thead class="table-light">
       <tr>
         <th>Nom</th>
         <th>Email</th>
         <th>Téléphone</th>
-        <th>Actions</th>
+        <th>Status</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let customer of customers">
+      <tr *ngFor="let customer of displayedCustomers; trackBy: trackById">
         <td>{{ customer.name }}</td>
         <td>{{ customer.email }}</td>
         <td>{{ customer.phone }}</td>
+        <td>{{ customer.status }}</td>
         <td>
-          <button class="btn btn-sm btn-warning me-2">Modifier</button>
-          <button class="btn btn-sm btn-danger" (click)="deleteCustomer(customer.id)">Supprimer</button>
+          <button class="btn btn-sm btn-warning me-2" [routerLink]="['/customers/edit', customer.id]">Modifier</button>
+          <button class="btn btn-sm btn-danger" (click)="deleteCustomer(customer.id!)">Supprimer</button>
         </td>
       </tr>
     </tbody>
   </table>
+
+  <div class="alert alert-info" *ngIf="displayedCustomers.length === 0">
+     <span *ngIf="searchTerm">
+      Aucun client trouvé pour "{{ searchTerm }}"
+    </span>
+    <span *ngIf="!searchTerm">
+      Aucun client disponible
+    </span>
+    </div>
 </div>

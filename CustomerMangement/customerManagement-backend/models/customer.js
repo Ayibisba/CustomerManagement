@@ -1,19 +1,18 @@
-require('dotenv').config();
+// models/customer.js
+'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  const Customer = sequelize.define("customer", {
-    firstName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: { msg: "Le prénom est requis." },
-      }
+  const Customer = sequelize.define("Customer", {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
     },
-    lastName: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: { msg: "Le nom est requis." },
+        notEmpty: { msg: "Le nom et prénom sont requis." },
       }
     },
     email: {
@@ -26,12 +25,23 @@ module.exports = (sequelize, DataTypes) => {
     },
     phone: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: true
+    },
+    status: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "Actif",
+      validate: {
+        isIn: {
+          args: [["Actif", "Inactif"]],
+          msg: "Le statut doit être Actif ou Inactif."
+        }
+      }
     }
   }, {
-    timestamps: true
+    tableName: 'customers',
+    timestamps: false,
   });
 
   return Customer;
 };
-

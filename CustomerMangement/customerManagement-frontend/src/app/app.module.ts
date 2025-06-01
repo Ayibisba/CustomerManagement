@@ -14,14 +14,13 @@ import { CustomerFormComponent } from './components/Customer/customer-form/custo
 @NgModule({
   declarations: [
     AppComponent,
-    CustomerListComponent,
-    CustomerFormComponent,
-    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    CustomerListComponent,
+    CustomerFormComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
